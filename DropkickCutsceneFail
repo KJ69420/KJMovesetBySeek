@@ -32,7 +32,7 @@ local function s(d)
     end)
 end
 
-local m = require(game.ReplicatedStorage.Cutscenes["Drop kick"])
+local m = require(game.ReplicatedStorage.Cutscenes["Dropkick"])
 
 local d = m
 if d then
