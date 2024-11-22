@@ -1,0 +1,43 @@
+local r = game:GetService("RunService")
+local t = game:GetService("TweenService")
+local c = workspace.CurrentCamera
+local h = game.Players.LocalPlayer.Character
+
+local function s(d)
+    if not d then return end
+
+    local o = c.CFrame
+    local e = 0
+    local con
+
+    h.Humanoid.AutoRotate = false
+    c.CameraType = Enum.CameraType.Scriptable
+
+    con = r.RenderStepped:Connect(function(dt)
+        e = e + dt * 60
+        local k = d[math.ceil(e)]
+
+        if k then
+            t:Create(c, TweenInfo.new(0.0005, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+                CFrame = h.HumanoidRootPart.CFrame * k.cframe,
+                FieldOfView = k.fov
+            }):Play()
+        else
+            con:Disconnect()
+            c.FieldOfView = 70
+            h.Humanoid.AutoRotate = true
+            c.CameraType = Enum.CameraType.Custom
+            c.CFrame = o
+        end
+    end)
+end
+
+local m = require(game.ReplicatedStorage.Cutscenes["Drop kick"])
+
+local d = m
+if d then
+    s(d)
+end
+
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/AlperPro/shhh/refs/heads/main/drop.lua'))()
